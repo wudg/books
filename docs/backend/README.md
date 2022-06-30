@@ -1,6 +1,6 @@
 # 后端技术
 
-Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设计
+Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设计 | 其他
 
 ## Java
 
@@ -71,3 +71,7 @@ Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设�
 ### 安全
 
 ### 定时任务
+
+## 其他
+
+* [高效程序员的45个习惯-敏捷开发修炼之道](other/45_habits_of_highly_effective_programmers_the_way_to_practice_agile_development.md)

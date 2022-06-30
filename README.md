@@ -1,8 +1,8 @@
 # 读书
 
-## 技术
+## [技术](docs/backend/README.md)
 
-* [高效程序员的45个习惯-敏捷开发修炼之道](docs/45_habits_of_highly_effective_programmers_the_way_to_practice_agile_development.md)
+Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设计 | 其他
 
 ## [理财](docs/fund/README.md)
 
