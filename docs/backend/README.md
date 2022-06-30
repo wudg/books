@@ -18,6 +18,9 @@ Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设�
 
 ### MySQL
 
+* [《MySQL技术精粹》](database/MySQL_technology_essence.md)
+
+
 ### Redis
 
 ## 常用框架
@@ -74,4 +77,4 @@ Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设�
 
 ## 其他
 
-* [高效程序员的45个习惯-敏捷开发修炼之道](other/45_habits_of_highly_effective_programmers_the_way_to_practice_agile_development.md)
+* [《高效程序员的45个习惯-敏捷开发修炼之道》](other/45_habits_of_highly_effective_programmers_the_way_to_practice_agile_development.md)
