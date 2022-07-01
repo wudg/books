@@ -11,9 +11,10 @@
 </div>
 <br>
 
-| Java&nbsp; | 数据库 | 常用框架&nbsp;|分布式| &nbsp;高性能&nbsp;&nbsp;|&nbsp;高可用&nbsp;&nbsp;|系统设计| &nbsp;&nbsp;其他
-| :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| Java&nbsp; | 数据库 | 常用框架&nbsp;|分布式| &nbsp;高性能&nbsp;&nbsp;|&nbsp;高可用&nbsp;&nbsp;|系统设计| &nbsp;&nbsp;其他|
+| :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----: |
 | [:pencil2:](#pencil2-Java) | [:computer:](#computer-数据库) | [:cloud:](#cloud-常用框架) | [:art:](#art-分布式) | [:floppy_disk:](#floppy_disk-高性能) |[:coffee:](#coffee-高可用)| [:bulb:](#bulb-系统设计) |[:wrench:](#wrench-其他)|
+
 <br>
 
 ---
