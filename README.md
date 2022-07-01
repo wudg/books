@@ -18,8 +18,7 @@
 ---
 ## [技术](docs/backend/README.md)
 
-| Java&nbsp; | 数据库 | 常用框架&nbsp;|分布式| &nbsp;高性能&nbsp;&nbsp;|&nbsp;高可用&nbsp;&nbsp;|系统设计| &nbsp;&nbsp;其他|
-| :---: | :----: | :---: | :----: | :----: | :----: | :----: | :----: |
+|&nbsp;Java&nbsp;|&nbsp;数据库&nbsp;| 常用框架&nbsp;|&nbsp;分布式&nbsp;| &nbsp;高性能&nbsp;|&nbsp;高可用&nbsp;|&nbsp;系统设计&nbsp;| &nbsp;其他 &nbsp;|
 
 ### Java
 
@@ -41,8 +40,7 @@
 
 ## [理财](docs/fund/README.md)
 
-| 基础知识&nbsp; | 书籍阅读 | 基金日报&nbsp;|其他|
-| :---: | :----: | :---: | :----: | :----: |
+| 基础知识&nbsp; | 书籍阅读 | 基金日报&nbsp;|&nbsp;其他&nbsp;|
 
 ---
 ## 生活
