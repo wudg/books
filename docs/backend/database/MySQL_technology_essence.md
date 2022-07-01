@@ -127,13 +127,98 @@ MyISAM 在磁盘上存储三个文件
 2. 自动增长列
 3. 外键约束
 
-在物理存储方面，InnoDB有独特的存储方式，表结构数据也是存放在“.frm”文件中，但是表数据和索引数据时存放在一起的。InnoDB的存储表和索引有两种方式
-
-1. 使用共享表空间存储：
-
 <!-- P30 -->
 
+在物理存储方面，InnoDB有独特的存储方式，表结构数据也是存放在“.frm”文件中，但是表数据和索引数据时存放在一起的。InnoDB的存储表和索引有两种方式
+
+1. 使用共享表空间存储：所有表和索引数据存放在同一个表空间
+2. 使用多表空间存储：表结构存放在.frm文件中，表数据和索引存放在单独的.ibd文件中。如果是分区表，则每个分区对应单独的.ibd文件，文件名称是“表名+分区名”
+
+#### 1.3.3 Memory
+
+Memory 存储引擎通过采用内存中的内容来创建表。每个Memory表实际上和一个磁盘文件关联起来。文件名采用“表名.frm”的格式。Memory类型的表访问速度非常快，因为数据来源于内存空间。Memory存储引擎默认使用hash索引，数据库发生故障时数据会丢失。
+
+Memory表内存存储在内存中，如果一个内部表变的很大，服务器自动把它转换成为一个磁盘表
+
+#### 1.3.4 Merge
+
+Merge 存储引擎是一组 MyISAM 表的组合，将一组结构相同的 MyISAM 表组合成一个逻辑单元，通常也叫做MRG—_MyISAM存储引擎。Merge表本身没有数据
+
+### 1.4 MySQL 工具
+
+> 管理 MySQL 服务器、对数据库进行访问控制、管理 MySQL 用户以及数据库备份和恢复工具等
+
+#### 1.4.1 MySQL 命令行实用程序
+
+MySQL 服务器端实用工具程序：
+
+1. mysqld：SQL 后台程序（即MySQL服务器进程）
+2. mysql_safe：服务器启动脚本
+3. mysql.server：服务器启动脚本，调用mysql_safe
+4. mysqld_multi：服务器启动脚本，可以启动或停止系统上安装的多个服务器
+5. myisamchk：用来描述、检查、优化和维护 MyISAM表
+6. mysql.server：服务器启动脚本
+7. mysqlbug：MySQL 缺陷报告脚本，可以用来向MySQL邮件系统发送缺陷报告
+8. mysql_install_db：系统首次安装时执行一次
+
+MySQL 客户端实用工具：
+
+1. myisampack：压缩 MyISAM 表
+2. mysql：交互式输入SQL语句
+3. mysqlaccess：检查访问主机名、用户名和数据库组合的权限的脚本
+4. mysqladmin：执行管理操作的客户端程序，如创建或删除数据库，重载授权表，将表刷新到磁盘上，以及重新打开日志文件。还可以用来检索版本、进程，以及服务器的状态信息
+5. mysqlbinlog：从二进制日志读取语句的工具，帮助系统从崩溃中恢复
+6. mysqlcheck：检查、修复、分析以及优化表的表维护客户程序
+7. mysqldump：将MySQL数据库转储到一个文件
+8. mysqlhotcopy：快速备份MyISAM表的工具
+9. mysql import：使用LOAD DATA INFILE 将文本文件导入相关表
+10. mysqlshow：显示数据库、表、列以及索引相关信息
+11. perror：显示系统或者MySQL错误代码含义
+
+MySQL 客户端连接工具--mysql
+
+> mysql [options] [database]
+
+* -user：简写为 -u，指定数据库用户名
+* -password：简写为 -p，指定数据库密码
+* -host：简写为 -h，指定远程MySQL服务器IP地址
+* -port：简写为 -P，指定连接的端口
+
+MySQL 管理工具--mysqladmin
+
+> mysqladmin [options] command command
+
+* --default-character-set=name
+* -h：--host=name
+* -p：--password
+* -P：端口
+* --protocol
+
+#### 1.4.2 MySQL Workbench
+
+> 下一代可视化数据库设计软件
+
+> 数据库设计和模型建立。SQL开发。数据库管理。
+
+### 1.5 本章小结
+
+主要围绕 MYSQL 数据库的逻辑结构&存储引擎及其特性&MySQL数据库提供的常用工具
+
 ## 第二章 MySQL 权限与安全
+
+不当的权限设置可能会导致各种各样的安全隐患
+
+### 2.1 权限表
+
+MySQL 服务器通过权限表控制用户对数据库的访问，权限表存放在 mysql 数据库中，由 mysql_install_db 脚本初始化。存储账户权限信息表主要有：user、db、host、tables_priv、columns_priv和proce_priv
+
+#### 2.1.1 user 表
+
+记录允许连接到服务器的账号信息，里面的授权是全局的
+
+用户列：
+
+<!-- P51 -->
 
 ## 第三章 数据备份与还原
 
@@ -154,4 +239,6 @@ MyISAM 在磁盘上存储三个文件
 ## 第十一章 MySQL Cluster 实战
 
 ## 企业中 MySQL 的高可用架构
+
+
 
