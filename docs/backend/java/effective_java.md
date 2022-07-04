@@ -130,9 +130,56 @@ public class NutritionFacts implements Serializable {
 }
 ```
 
-Builder 模式也适用于类层次结构
+Builder 模式也适用于类层次结构。
 
 <!-- P23 -->
+与构造器相比，builder的微略优势在于，它可以有多个可变参数。因为builder是利用单独额方法来设置每一个参数。
+
+Builder模式十分灵活，可以利用单个builder构建多个对象。builder的参数可以在调用build方法来创建对象期间进行调整，也可以随着不同的对象而改变，builder可以自动填充某些域，例如每次创建对象时自动增加序列号
+
+Builder模式的确也有它自身的不足。为了创建对象，必须先创建它的构建器。虽然创建这个构建器的开销在实践中可能不那么明显，但在某些十分注重性能的情况下，可能就成问题了。
+
+如果类的构造器或者静态工厂中具有多个参数，设计这种类时，Builder模式就是一种不错的选择。
+
+### 第三条：用私有构造器或者枚举类型强化Singleton属性
+
+Singleton是指仅仅被实例化一次的类。Singleton通常被用来代表一个无状态的对象，或者那些本质上唯一的系统组件。使类成为Singleton会使它的客户端测试变得十分空难。
+
+实现Singleton有两种常见的方法（都要保持构造器为私有的），并导出公有的静态成员，以便允许客户端能够访问该类的唯一实例、
+
+1. 公有静态成员是一个final域
+```java
+public class Elvis{
+    public static final Elvis INSTANCE = new Elvis();
+    private Elvis(){}
+    public void leaveTheBuilding(){}
+}
+```
+
+2. 公有的成员是一个静态工厂方法
+```java
+public class Elvis{
+    private static final Elvis INSTANCE = new Elvis();
+    private Elvis(){}
+    public static Elvis getInstance(){return INSTANCE}
+    public void leaveTheBuilding(){}
+}
+```
+
+为了维护并保证Singleton，必须声明所有实例域都是瞬时的，并提供一个readResolve方法。否则，每次反序列化一个序列号的实例时，都会创建要给新的实例。
+
+3. 声明一个包含单个元素的枚举类型
+```java
+public enum Elvis{
+    INSTANCE;
+
+    public void leaveTheBuilding(){}
+}
+```
+
+### 第四条：通过私有构造器强化不可实例化的能力
+
+
 
 ## 第三章 对于所有对象都通用的方法
 
