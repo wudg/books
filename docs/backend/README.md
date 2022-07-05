@@ -5,6 +5,7 @@ Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设�
 ## Java
 
 * [《Effiective Java》](java/effective_java.md)
+* [零拷贝](java/zero_copy.md)
 
 ### 基础
 
@@ -21,8 +22,6 @@ Java | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系统设�
 ### MySQL
 
 * [《MySQL技术精粹》](database/MySQL_technology_essence.md)
-* [零拷贝](database/zero_copy.md)
-
 
 ### Redis
 
