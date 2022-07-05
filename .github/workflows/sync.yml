@@ -21,4 +21,4 @@ jobs:
         with:
             gitee-username: WuDG
             gitee-password: ${{ secrets.GITEE_PASSWORD }}
-            gitee-repo: WuDG/blog
+            gitee-repo: WuDG/books
