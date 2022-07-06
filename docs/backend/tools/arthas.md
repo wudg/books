@@ -265,6 +265,8 @@ ts=2022-07-06 11:42:24; [cost=0.0494ms] result=@ArrayList[
 
 * dashboard：查看当前系统实时数据面板
 
+https://arthas.aliyun.com/doc/advanced-use.html#id2
+
 ### class/classloader相关
 
 ### monitor/watch/trace相关
