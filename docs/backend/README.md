@@ -40,6 +40,10 @@ Java | go | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系�
 
 ### Spring Cloud
 
+### shiro
+
+* [shiro](framework/shiro.md)
+
 ## 分布式
 
 ### 理论&协议&算法
