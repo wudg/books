@@ -7,6 +7,7 @@ Java | go | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系�
 * [《Effiective Java》](java/effective_java.md)
 * [零拷贝](java/zero_copy.md)
 * [《并发编程》](java/juc.md)
+* [spring-core](java/spring-core.md)
 
 ### 基础
 
