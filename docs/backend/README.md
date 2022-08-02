@@ -106,3 +106,4 @@ Java | go | 数据库 | 常用框架 | 分布式 | 高性能 | 高可用 | 系�
 ## 其他
 
 * [《高效程序员的45个习惯-敏捷开发修炼之道》](other/45_habits_of_highly_effective_programmers_the_way_to_practice_agile_development.md)
+* [【Github开源项目体验】- ZFile 基于 Java 的在线网盘](other/github-zfile.md)
