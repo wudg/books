@@ -775,13 +775,246 @@ reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
 
 #### filter
 
-### sorted
+用于过滤序列
+
+和`map()`类似，`filter()`也接收一个函数和一个序列，不同的是，`filter()`把传入的函数一次作用域每个元素，然后根据返回值是`True`还是`False`决定保留还是丢弃该值
+
+例如，在一个list中删掉偶数，只保留奇数
+
+```python
+def is_odd(n):
+    return n % 2 == 1
+
+list(filter(is_odd, [1, 2, 4, 5, 6, 9, 10, 15]))
+# 结果: [1, 5, 9, 15]
+```
+
+`filter()`返回的是一个`Iterator`，是一个惰性序列，所以要强迫`filter()`完成计算结果，需要用`list()`函数获得所有结果并返回list
+
+小结：
+
+filter()的作用是从一个序列中筛出符合条件的元素。由于filter()使用了惰性计算，所以只有在取filter()结果的时候，才会真正筛选并每次返回下一个筛出的元素。
 
 
+#### sorted
+
+排序
+
+```python
+sorted([36, 5, -12, 9, -21])
+# [-21, -12, 5, 9, 36]
+
+# 按绝对值大小排序，key指定的函数将作用于list的每个元素上，并根据key函数返回的结果进行排序
+sorted([36, 5, -12, 9, -21], key=abs)
+# [5, 9, -12, -21, 36]
+
+# 反向排序
+sorted([36, 5, -12, 9, -21], key=abs, reverse=True)
+```
+
+### 返回函数
+
+函数作为返回值
+
+```python
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum
+```
+
+当我们调用`lazy_sum()`时，返回的并不是求和结果，而是求和函数：
+
+```shell
+>>> f = lazy_sum(1, 3, 5, 7, 9)
+>>> f
+<function lazy_sum.<locals>.sum at 0x101c6ed90>
+>>> f()
+25
+```
+
+闭包：
+
+一个函数可以返回一个计算结果，也可以返回一个函数。
+
+返回一个函数时，牢记该函数并未执行，返回函数中不要引用任何可能会变化的变量。
+
+### 匿名函数
+
+```python
+# 定义匿名函数，和下面函数定义功能相同
+lambda x: x*x
+def f(x):
+    return x*x
+
+# 使用
+list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+# 结果
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# 匿名函数作为返回值返回
+def build(x, y):
+    return lambda: x * x + y * y
+```
+
+Python对匿名函数的支持有限，只有一些简单的情况下可以使用匿名函数。
+
+### 装饰器
+
+类似Java中的AOP（代理模式），可以在函数调用前后添加逻辑
+
+```python
+def log(func):
+    def wrapper(*args, **kw):
+        # func.__name__ 可以获取到函数的名字
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper
+
+# 使用
+
+@log
+def now():
+    print('2015-3-25')
+```
+
+```python
+# 完整示例
+import time, functools
+
+def decorator(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        t = time.time()
+        fn()
+        print(f'cost:{time.time() - t:.4f}s')
+    return wrapper
+
+@decorator
+def fn():
+    print('Begin')
+    time.sleep(1)
+    print('End')
+
+fn()
+```
+
+在面向对象（OOP）的设计模式中，decorator被称为装饰模式。OOP的装饰模式需要通过继承和组合来实现，而Python除了能支持OOP的decorator外，直接从语法层次支持decorator。Python的decorator可以用函数实现，也可以用类实现。
+
+decorator可以增强函数的功能，定义起来虽然有点复杂，但使用起来非常灵活和方便。
+
+### 偏函数
+
+```python
+int('12345')
+int('12345', base=8)
+int('12345', base=2)
+
+# 定义一个int2()函数来默认转为二进制
+def int2(x, base=2):
+    return int(x, base)
+
+# 使用偏函数
+import functools
+int2 = functools.partial(int, base=2)
+int2('1000000')
+```
 
 ## 模块
 
+一个.py文件就称之为一个模块（Module）
+
+好处：
+1. 提高了代码可维护性
+2. 代码复用
+3. 避免函数名和变量名冲突
+
+为了避免模块名冲突，引入按目录来组织模块的方法，称为包（Package）
+
+总结
+模块是一组Python代码的集合，可以使用其他模块，也可以被其他模块使用。
+
+创建自己的模块时，要注意：
+
+* 模块名要遵循Python变量命名规范，不要使用中文、特殊字符；
+* 模块名不要和系统模块名冲突，最好先查看系统是否已存在该模块，检查方法是在Python交互环境执行import abc，若成功则说明系统存在此模块。
+
+### 使用模块
+
+Python内置了很多有用的模块，可以直接被使用，如下使用`sys`模块
+
+```python
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+' a test module '
+
+__author__ = 'wudiguang'
+
+import sys
+
+def test():
+    args = sys.argv
+    if len(args)==1:
+        print('Hello, world!')
+    elif len(args)==2:
+        print('Hello, %s!' % args[1])
+    else:
+        print('Too many arguments!')
+
+if __name__=='__main__':
+    test()
+```
+
+运行结果如下：
+
+```shell
+$ python3 hello.py
+Hello, world!
+$ python hello.py Michael
+Hello, Michael!
+```
+
+作用域：
+
+* _abc 和 __xxx：这样的函数或变量是非公开的（private），不应该被直接引用
+* abc：公开的（public）
+
+外部不需要引用的函数全部定义成private，只有外部需要引用的函数才定义为public。
+
+### 安装第三方模块
+
+在Python中，安装第三方模块是通过包管理工具`pip`完成的
+
+一般来说，第三方库都会在Python官方的`https://pypi.python.org`网站注册，可以在官网查看目标库，如安装`Pillow`
+
+```shell
+pip install Pillow
+```
+
+使用Anaconda：
+
+默认安装数十个第三方模块
+
 ## 面向对象编程
+
+OOP，同Java
+
+数据封装、继承和多态是面向对象的三大特点
+
+```python
+# 继承 object
+class Student(object):
+    # 实例创建会调用__init__方法，第一个参数是对象本身
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+    def print_score(self):
+        print('%s: %s' % (self.name, self.score))
+```
 
 ## 面向对象高级编程
 
