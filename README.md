@@ -18,23 +18,29 @@
 ---
 ## [技术](docs/backend/README.md)
 
-|&nbsp;Java&nbsp;|&nbsp;数据库&nbsp;| 常用框架&nbsp;|&nbsp;分布式&nbsp;| &nbsp;高性能&nbsp;|&nbsp;高可用&nbsp;|&nbsp;系统设计&nbsp;| &nbsp;其他 &nbsp;|
+|&nbsp;Java&nbsp;|&nbsp;AI&nbsp;|&nbsp;Go&nbsp;|&nbsp;数据库&nbsp;| 常用框架&nbsp;|&nbsp;分布式&nbsp;| &nbsp;高性能&nbsp;|&nbsp;高可用&nbsp;|&nbsp;系统设计&nbsp;| &nbsp;tools &nbsp;| &nbsp;面试题 &nbsp; | &nbsp;其他 &nbsp;|
 
-### Java
+### [Java](docs/backend/README.md)
 
-### 数据库
+### [AI](docs/backend/README.md)
 
-### 常用框架
+### [Go](docs/backend/README.md)
 
-### 分布式
+### [数据库](docs/backend/README.md)
 
-### 高性能
+### [常用框架](docs/backend/README.md)
 
-### 高可用
+### [分布式](docs/backend/README.md)
 
-### 系统设计
+### [高性能](docs/backend/README.md)
 
-### 其他
+### [高可用](docs/backend/README.md)
+
+### [系统设计](docs/backend/README.md)
+
+### [面试题](docs/backend/README.md)
+
+### [其他](docs/backend/README.md)
 
 ---
 
@@ -43,10 +49,10 @@
 | 基础知识&nbsp; | 书籍阅读 | 基金日报&nbsp;|&nbsp;其他&nbsp;|
 
 ---
-## 生活
+## [生活](docs/backend/README.md)
 
 ---
-## 成长
+## [成长](docs/backend/README.md)
 
 ---
-## 其他
+## [其他](docs/backend/README.md)
