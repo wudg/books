@@ -387,9 +387,397 @@ False
 
 ## 函数
 
+函数是最基本的一种代码抽象方式
+
+### 调用函数
+
+官方函数网站：[进入](http://docs.python.org/3/library/functions.html)
+
+可以使用 `help(abs)`查看`abs`函数的帮助信息
+
+```shell
+>>> abs(100)
+100
+>>> abs(-20)
+20
+>>> abs(12.34)
+12.34
+```
+
+* max(x1, x2...)：去最大值
+* int('123')：强制转换为整数
+* float('12.45')：强制转换为浮点型
+* str(1.23)：强制转换为字符串
+* bool(1)：强制转换为布尔型
+* hex(int)：转为十六进制数值
+
+调用Python函数需要根据定义，传入正确的参数。如果函数调用出错，需要会看错误信息
+
+### 定义函数
+
+```python
+# abstest.py
+# -*- coding: utf-8 -*-
+def my_abs(x):
+    if x >= 0:
+        return x
+    else:
+        return -x    
+```
+
+把上述的`my_abs()`函数定义保存到`abstest.py`文件中，然后可以使用`from abstest import my_abs` 来导入`my_abs()`函数，注意`abstest`是文件名
+
+空函数：空逻辑
+
+```python
+def nop():
+    pass
+```
+
+参数检查：如只允许整数和浮点，当传入了不恰当的参数时，打印错误信息
+
+```python
+# -*- coding: utf-8 -*-
+def my_abs(x):
+    if not isinstance(x, (int, float)):
+        raise TypeError('bad operand type')
+    if x >= 0:
+        return x
+    else:
+        return -x
+```
+
+添加了参数检查后，如果传入错误的参数类型，函数就可以抛出一个错误：
+
+```python
+Traceback (most recent call last):
+  File "client.py", line 2, in <module>
+    print(my_abs('A'))
+  File "abstest.py", line 4, in my_abs
+    raise TypeError('bad operand type')
+TypeError: bad operand type
+```
+
+返回多个值：
+
+```python
+import math
+
+def move(x, y, step, angle=0):
+    nx = x + step * math.cos(angle)
+    ny = y - step * math.sin(angle)
+    return nx, ny
+```
+
+`import math`语句表示导入`math`包，并允许后续代码引用`math`包里的`sin`，`cos`等函数
+
+```python
+>>> x, y = move(100, 100, 60, math.pi / 6)
+>>> print(x, y)
+151.96152422706632 70.0
+```
+
+但其实这是一种假象，Python函数返回的仍然是单一值：
+
+```python
+>>> r = move(100, 100, 60, math.pi / 6)
+>>> print(r)
+(151.96152422706632, 70.0)
+```
+
+原来返回值是一个tuple！但是，在语法上，返回一个tuple可以省略括号，而多个变量可以同事接收一个tuple，按位置赋给对应的值，所以Python函数返回值其实就是返回一个tuple。但写起来更方便
+
+
+### 函数的参数
+
+必选参数、默认参数、可变参数、关键字参数和命名关键字参数
+
+默认参数值：
+
+```python
+def power(x, n=2):
+    s = 1
+    while n > 0:
+        n = n - 1
+        s = s* x
+    return s
+```
+
+
+可变参数：
+1. 组装tuple或list
+2. 变长
+
+```python
+# 传入tuple或list
+# 调用：calc(1, 2, 3)
+def calc(numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+```
+
+```python
+# 变长参数
+# 调用：calc(1,2,3)
+def calc(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+```
+
+关键字参数：允许传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict
+
+```python
+def person(name, age, **kw):
+    print('name:', name, 'age:', age, 'other:', kw)
+```
+
+函数`person`除了必选参数`name`和`age`外，还接受关键字参数`kw`
+
+```shell
+# 只传入必选参数
+>>> person('Michael', 30)
+name: Michael age: 30 other: {}
+```
+
+```python
+# 传入任意个数的关键字参数
+>>> person('Bob', 35, city='Beijing')
+name: Bob age: 35 other: {'city': 'Beijing'}
+>>> person('Adam', 45, gender='M', job='Engineer')
+name: Adam age: 45 other: {'gender': 'M', 'job': 'Engineer'}
+```
+
+```python
+# 包含各类参数的函数定义
+def f1(a, b, c=0, *args, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
+
+def f2(a, b, c=0, *, d, **kw):
+    print('a =', a, 'b =', b, 'c =', c, 'd =', d, 'kw =', kw)
+```
+
+```python
+# 函数调用
+>>> f1(1, 2)
+a = 1 b = 2 c = 0 args = () kw = {}
+>>> f1(1, 2, c=3)
+a = 1 b = 2 c = 3 args = () kw = {}
+>>> f1(1, 2, 3, 'a', 'b')
+a = 1 b = 2 c = 3 args = ('a', 'b') kw = {}
+>>> f1(1, 2, 3, 'a', 'b', x=99)
+a = 1 b = 2 c = 3 args = ('a', 'b') kw = {'x': 99}
+>>> f2(1, 2, d=99, ext=None)
+a = 1 b = 2 c = 0 d = 99 kw = {'ext': None}
+```
+
+### 递归
+
+```python
+def fact(n):
+    if n==1:
+        return 1
+    return n * fact(n - 1)
+```
+
+使用递归函数的优点是逻辑简单清晰，缺点是过深的调用会导致栈溢出。
+
+针对尾递归优化的语言可以通过尾递归防止栈溢出。尾递归事实上和循环是等价的，没有循环语句的编程语言只能通过尾递归实现循环。
+
+Python标准的解释器没有针对尾递归做优化，任何递归函数都存在栈溢出的问题。
+
 ## 高级特性
 
+代码越少，开发效率越高
+
+### 切片
+
+取一个list或tuple的部分元素，如下list：
+
+```python
+L = ['Michael', 'Sarah', 'Tracy', 'Bob', 'Jack']
+```
+
+* L[0:3] or L[:3]：取前三个元素
+* L[-2:]：倒数第二个到最后一个
+
+### 迭代
+
+`for...in`
+
+可以使用`list`、`tuple`、`dict`等
+
+```python
+# list或tuple
+for (i=0; i<length; i++) {
+    n = list[i];
+}
+```
+
+```python
+d = {'a': 1, 'b': 2, 'c': 3}
+# 默认迭代key
+for key in d:
+    print(key)
+# 迭代value
+for value in d.values()
+# 同时迭代key和value
+for k, v in d.items()
+```
+
+判断一个对象是否可迭代：
+
+```python
+from collections.abc import Iterable
+isinstance('abc', Iterable)
+# True
+isinstance([1,2,3], Iterable)
+# True
+isinstance(123, Iterable)
+# False
+```
+
+获取list每个元素下标：内置的`enumerate`函数把`list`变成索引-元素树
+
+```python
+for i, value in enumerate(['A', 'B', 'C']):
+    print(i, value)
+```
+
+任何可迭代对象都可以作用于`for`循环，包括我们自定义的数据类型，只要符合迭代条件，就可以使用`for`循环
+
+### 列表生成式
+
+运用列表生成式，可以快速生成list，可以通过一个list推导出另一个list，而代码却十分简洁。
+
+```python
+# [1*1, 2*2, 3*3..., 10*10]
+[x * x for x in range(1, 11)]
+# [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+# 筛选出仅偶数的平方
+[x * x for x in range(1, 11) if x % 2 == 0]
+# [4, 16, 36, 64, 100]
+
+# 使用两层循环，生成全排列
+[m + n for m in 'ABC' for n in 'XYZ']
+```
+
+### 生成器-generator
+
+> 一边循环一边计算的机制
+
+```python
+# 定义generator
+g = (x * x for x in range(10))
+# 依次打印
+next(g)
+```
+
+定义斐波拉契数列：
+
+```python
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        print(b)
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+```
+
+上述的函数和generator很类似，要把`fib`函数变成generator函数，只需要把`print(b)`改为`yield b`就可以了
+
+```python
+def fib(max):
+    n, a, b = 0, 0, 1
+    while n < max:
+        yield b
+        a, b = b, a + b
+        n = n + 1
+    return 'done'
+```
+
+generator函数执行逻辑：每次调用`next()`时执行，遇到`yield`语句返回，再次执行从上次返回的`yield`语句处继续执行
+
+generator是非常强大的工具，在Python中，可以简单地把列表生成式改成generator，也可以通过函数实现复杂逻辑的generator
+
+### 迭代器
+
+凡是可作用于for循环的对象都是Iterable类型；
+
+凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；
+
+集合数据类型如list、dict、str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象。
+
 ## 函数式编程
+
+函数式编程是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是正确的，输出就是确定的
+
+特点：允许把函数本身作为参数传入另一个函数，还允许返回一个函数
+
+### 高阶函数
+
+变量可以指向函数名
+
+```python
+f = abs
+f(-10)
+```
+
+### 传入函数
+
+一个函数可以接收另一个函数作为参数--高阶函数
+
+```python
+def add(x, y, f):
+    return f(x) + f(y)
+```
+
+```python
+x = -5
+y = 6
+f = abs
+f(x) + f(y) ==> abs(-5) + abs(6) ==> 11
+return 11
+```
+
+编写高阶函数，就是让函数的参数能够接收别的函数。
+
+#### map/reduce
+
+* map()：接收两个参数，一个是函数，一个是`Iterator`，`map`将传入的函数一次作用到序列的每个元素，并把结果作为新的`Iterator`返回
+
+```shell
+>>> def f(x):
+...     return x * x
+...
+>>> r = map(f, [1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> list(r)
+[1, 4, 9, 16, 25, 36, 49, 64, 81]
+```
+
+`map()`传入的第一个参数是`f`，即函数对象本身。由于结果`r`是一个`Iterator`，`Iterator`是惰性序列，因此通过`list()`函数让它把整个序列都计算出来并返回一个list
+
+```python
+>>> list(map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9]))
+['1', '2', '3', '4', '5', '6', '7', '8', '9']
+```
+
+* reduce()：把一个函数作用在一个序列`[x1, x2, x3,...]`上，这个函数必须接收两个参数，`reduce`把结果继续和序列的下一个元素做累积计算，其效果就是：
+
+```python
+reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+```
+
+#### filter
+
+### sorted
+
+
 
 ## 模块
 
