@@ -2,7 +2,7 @@
 
 ## 路线
 
-![路线图](http://150.158.153.134/pic/images/wugongshan.png)
+![路线图](http://wudg.work/pic/images/wugongshan.png)
 
 ## 必带物品
 
@@ -20,7 +20,7 @@
 
 ## 乘车信息
 
-![乘车信息](http://150.158.153.134/pic/images/wugongshan_tickets.jpg)
+![乘车信息](http://wudg.work/pic/images/wugongshan_tickets.jpg)
 
 ## 开支
 
