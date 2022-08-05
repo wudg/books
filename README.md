@@ -56,3 +56,7 @@
 
 ---
 ## [其他](docs/backend/README.md)
+
+---
+
+## [娱乐](docs/entertainment/README.md)
